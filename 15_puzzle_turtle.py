@@ -2,13 +2,13 @@ import turtle
 import tkinter as tk
 import random
 
-NUM_ROWS = 4
-NUM_COLS = 4
+NUM_ROWS = 3  # Max 4
+NUM_COLS = 4  # Max 4
 TILE_WIDTH = 90  # Actual image size
 TILE_HEIGHT = 90  # Actual image size
 FONT_SIZE = 24
 FONT = ('Helvetica', FONT_SIZE, 'normal')
-SCRAMBLE_DEPTH = 10
+SCRAMBLE_DEPTH = 100
 
 images = []
 for i in range(NUM_ROWS * NUM_COLS - 1):
@@ -16,6 +16,7 @@ for i in range(NUM_ROWS * NUM_COLS - 1):
     images.append(file)
 
 images.append("number-images/empty.gif")
+images.append("number-images/scramble.gif")
 
 
 def register_images():
@@ -118,7 +119,7 @@ def create_tiles():
 
     for i in range(NUM_ROWS):
         for j in range(NUM_COLS):
-            tile_num = 4 * i + j
+            tile_num = NUM_COLS * i + j
             tile = turtle.Turtle(images[tile_num])
             tile.penup()
             board[i][j] = tile
@@ -133,6 +134,17 @@ def create_tiles():
 
 
 def create_scramble_button():
+    """Uses a turtle with an image as a button."""
+    global screen
+    print(images)
+    button = turtle.Turtle(images[NUM_ROWS * NUM_COLS])
+    button.penup()
+    button.goto(0, -240)
+    button.onclick(lambda x, y: scramble_board())
+
+
+def create_scramble_button_tkinter():
+    """An alternative approach to creating a button using Tkinter."""
     global screen
     canvas = screen.getcanvas()
     button = tk.Button(canvas.master, text="Scramble", background="cadetblue", foreground="white", bd=0,
@@ -153,7 +165,8 @@ def main():
 
     # Initialise game and display
     board = create_tiles()
-    create_scramble_button()
+    create_scramble_button_tkinter()
+    # create_scramble_button()
     scramble_board()
     draw_board()
     screen.tracer(1)  # Restore animation
