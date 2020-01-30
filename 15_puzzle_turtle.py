@@ -2,7 +2,7 @@ import turtle
 import tkinter as tk
 import random
 
-NUM_ROWS = 3  # Max 4
+NUM_ROWS = 4  # Max 4
 NUM_COLS = 4  # Max 4
 TILE_WIDTH = 90  # Actual image size
 TILE_HEIGHT = 90  # Actual image size
@@ -12,7 +12,7 @@ SCRAMBLE_DEPTH = 100
 
 images = []
 for i in range(NUM_ROWS * NUM_COLS - 1):
-    file = f"number-images/{i+1}.gif"
+    file = f"number-images/{i+1}.gif" # Use `.format()` instead if needed.
     images.append(file)
 
 images.append("number-images/empty.gif")
